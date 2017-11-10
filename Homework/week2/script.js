@@ -1,62 +1,61 @@
 " use strict" ;
+
+// variables and constants
 const padding = 50;
 var data_list = [];
 var temp_list = [];
+var month_list = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
 document.addEventListener('DOMContentLoaded', function() { 
 	var data = (document.getElementById("rawdata"));
-	// console.log(data.value);
-	
 
+	// splits raw data line by line and append the right data in the right list
 	var row = data.value.split("\n");
-	//date = data.split(",");
-	//console.log(row);
 	for (i= 0; i < row.length - 1; i++){
 		var date = row[i].split(",");
 		var year = date[0].substr(2 , 4);
 		var month = date[0].substr(6 , 2);
 		var day = date[0].substr(8 , 2);
-		var goededatum = new Date(year, month, day);
+		var right_date = new Date(year, month, day);
 		
-		data_list.push(goededatum);
+		data_list.push(right_date);
 		temp_list.push(parseInt(date[1]));
 		
 	}
+	
+	// calculates minimum temperature from temp_list
 	temp_list.min = function( temp_list ){
     return Math.min.apply( Math, temp_list );
 	};
-
+	// calculates minimum temperature from temp_list
 	temp_list.max = function( temp_list ){
     return Math.max.apply( Math, temp_list );
 	};
 
-	var minMax = [temp_list.min(temp_list), temp_list.max(temp_list)];
-	
-	// console.log(minimum);
-	// console.log(maximum);
+	// list to define boundaries of graph on canvas
+	var min_max = [temp_list.min(temp_list) - 15, temp_list.max(temp_list) + 15];
 
+	// create canvas and define its height and width
 	var canvas = document.getElementById("mycanvas");
 	var ctx = canvas.getContext('2d');
-
 	canvas.height = 500;
 	canvas.width = 700
+	
+	// create the the x- and y-axis
 	ctx.beginPath();
 	ctx.moveTo(padding, 0);
 	ctx.lineTo(padding, canvas.height - padding);
 	ctx.lineTo(canvas.width, canvas.height - padding);
 	ctx.stroke();
-
-
-	// var createTransform()
 	
-	
-	var y_axis = createTransform(minMax, [canvas.height - padding, 0])
+	// define transformation in order to draw datapoints on canvas
+	var y_axis = createTransform(min_max, [canvas.height - padding, 0])
 	var x_axis = createTransform([0 ,temp_list.length], [padding, canvas.width])
 
 	ctx.beginPath();
-	// DIT NOG OPLOSSEN DAT DIE OP DE GOEDE PLEK BEGINT
 	ctx.moveTo(padding, y_axis(temp_list[0]));
-	console.log(temp_list);
-	// loop 
+	
+	// draw lines from data point to data point 
 	for ( var i = 1; i < temp_list.length; i++){
 		var xPoint = x_axis(i);
 		var yPoint = y_axis(temp_list[i]);
@@ -64,23 +63,62 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	}
 	ctx.stroke();
+
+	// scales the y-axis and adds the right numbers
+	for ( var i = 0; i < canvas.height; i += 20){
+		ctx.moveTo(padding, y_axis(i));
+		ctx.lineTo(padding - 5, y_axis(i));
+		ctx.fillText((i / 10), 30, y_axis(i), padding);
+		ctx.stroke();	
+	}
+	//
+	for ( var i = 0; i > min_max[0]; i -= 20){
+		ctx.moveTo(padding, y_axis(i));
+		ctx.lineTo(padding - 5, y_axis(i));
+		ctx.fillText((i / 10), 30, y_axis(i), padding);
+		ctx.stroke();
+			
+	}
+	ctx.moveTo(padding, canvas.height - padding);
 	
+	// variables
+	var month_counter = 0;
+	var month = 1000;
+
+	// iterates over datalist and scales the x-axis and adds months if needed
+	for ( var i = 1; i < data_list.length; i++){
+	
+		if (month != data_list[i].getMonth()){
+			month = data_list[i].getMonth();
+			ctx.moveTo(x_axis(i), canvas.height - padding);
+			ctx.lineTo(x_axis(i), (canvas.height - padding + 5));
+			ctx.font = '12px serif';
+			ctx.fillText(month_list[month_counter], x_axis(i) + 15, canvas.height - 25);
+			month_counter ++;
+		}
+		ctx.stroke();
+	}
+	// gives title to x-axis
+	ctx.font = '18px serif';
+	ctx.textAlign = "left";
+	ctx.fillText("Date (months)", 350, canvas.height - 5);
+
+	// gives title to y-axis 
+	ctx.save();
+	ctx.rotate(-Math.PI/2);
+	ctx.font = '18px serif';
+	ctx.textAlign = "right";
+	ctx.fillText("Temperature (\xB0C)",padding - 175,25 );
+	ctx.restore()
+
+
+
+
 
 })
 
-
-
-
-
 function createTransform(domain, range){
-	// domain is a two-element array of the data bounds [domain_min, domain_max]
-	// range is a two-element array of the screen bounds [range_min, range_max]
-	// this gives you two equations to solve:
-	// range_min = alpha * domain_min + beta
-	// range_max = alpha * domain_max + beta
- 		// a solution would be:
-
-    var domain_min = domain[0]
+	var domain_min = domain[0]
     var domain_max = domain[1]
     var range_min = range[0]
     var range_max = range[1]
