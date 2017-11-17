@@ -1,0 +1,41 @@
+<html>
+<head>
+<style>
+.bar{
+    fill: steelblue;
+}
+
+.bar:hover{
+   fill: grey;
+}
+
+.axis--x path {
+	display: none;
+}
+.toolTip {
+  position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background: none repeat scroll 0 0 #ffffff;
+  border: 1px solid #6F257F;
+  padding: 14px;
+  text-align: center;
+}
+</style>
+<script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
+<title>barchart</title>
+</head>
+<body>
+	<center>
+	<font size="5">Barchart</font>
+	</center>
+	<center>
+	<font size="4">Average windpeaks at 4 locations in october 2016.</font>
+	</center>
+	<svg width="400" height="500"></svg>
+	<right size="3">Mady by: Jelle den Haan</right>
+	<a href = "http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi">Data source</a>
+</body>
+<script src="barchart.js"></script>
+</html>
