@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	var y = d3.scaleLinear().rangeRound([height, 0]);
 
 	var g = svg.append("g")
-		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ')'
 	
 	
 	// load data from output.json 
