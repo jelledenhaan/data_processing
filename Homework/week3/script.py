@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-	# Jelle den Haan 11975458
-=======
+
 # Jelle den Haan 11975458
->>>>>>> 5861a914bb4b683480292e293a6e7d5cb6f42e7a
-# 
 #
 # This file reads a csv file, copies the data
 # and puts in into output.json in json format
