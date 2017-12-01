@@ -2,8 +2,8 @@
        Jelle den Haan 
        11975458
        index.html
-       This is the html script which loads d3line.js and svg.ccs.
-       The html page shows a scatterplot which is created with d3
+       This is the html script which loads d3line.js.
+       The html page shows a multiple line graph which is created with d3
 -->
 <html>
 <head>
@@ -14,14 +14,19 @@
 	.axis--x path {
   	display: none;
 	}
-
-
 	</style>
 </head>
 <body>
 	<center>
     	<font size="6">Line graph</font>
 	</center>
+
+	<div id="option">
+    <input name="updateButton" 
+           type="button" 
+           value="Schiphol" 
+           onclick= "updateData()"; />
+	</div>
 	<svg width="960" height="500"></svg>
 	<left size="5">Made by: Jelle den Haan<br>
 	</left>	

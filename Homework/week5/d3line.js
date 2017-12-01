@@ -1,21 +1,24 @@
 "use strict";
 var parsetime = d3.timeParse("%m/%d/%Y")
 
-window.onload = function(data) {
+window.onload = function(d) {
 
-	var Leeuwarden = "outputl.json";
-	var Schiphol = "outputs.json";
+// 	var Leeuwarden = "outputl.json";
+// 	var Schiphol = "outputs.json";
 
-	d3.queue()
-		.defer(d3.json, Leeuwarden)
-		.defer(d3.json, Schiphol)
-		.await(load_data);	
-}; 
+// 	d3.queue()
+// 		.defer(d3.json, Leeuwarden)
+// 		.defer(d3.json, Schiphol)
+// 		.await(load_data);	
+// }; 
 
-function load_data(error, dataL, dataS) {
-   		if (error) throw error;
+// function load_data(error, dataL, dataS) {
+//    		if (error) throw error;
     
-    var data = dataL;
+    d3.json('outputl.json', function(error, data) {
+			if (error) throw error;
+
+    var data = data;
 
     var min_temp = [];
 	var max_temp = [];
@@ -65,9 +68,6 @@ function load_data(error, dataL, dataS) {
       	.attr("fill", "#000")
       	.text("Temperature, C"); 	
 
-    
-
-
     z.domain(good_data.map(function(d) { return d.id; }));
 
   	var line = d3.line()
@@ -87,9 +87,58 @@ function load_data(error, dataL, dataS) {
     	.attr("d", function(d) { return line(d.values); })
     	.style("stroke", function(d) { return z(d.id); })
     	.style("fill", "none");	
+    	
+});
+ //    // vanaf dit punt 2 stations proberen te krijgen
+ //    function updateData() {
 
+    
+ //    // Get the data again
+ //    d3.json("outputs.json", function(error, data) {
+ //    	var data = data;
 
+	//     var min_temp = [];
+	// 	var max_temp = [];
+	// 	var average_temp = [];
+
+	// data.forEach( function(d){
+	// 		var date = parsetime(d.date);
+	// 		min_temp.push({date: date, temperature: d.min_temp/10})
+	// 		max_temp.push({date: date, temperature: d.max_temp/10})
+	// 		average_temp.push({date: date, temperature: d.average_temp/10})
+	// 		});
+
+	// var good_data = [{id: "min_temp", values: min_temp}, {id: "average_temp", values: average_temp}, {id: "max_temp", values: max_temp}];
+	
+	// x.domain(d3.extent(min_temp, function(d) { return d.date; }));
 	
 
+	// y.domain([
+ //    d3.min(min_temp, function(d) { return d.temperature; }),
+ //    d3.max(max_temp, function(d) { return d.temperature; })
+ //  	]);
+
+	// z.domain(good_data.map(function(d) { return d.id; }));
+    
+
+ //    // Select the section we want to apply our changes to
+ //    var svg = d3.select("body").transition();
+
+ //    // Make the changes
+ //        svg.select(".line")   // change the line
+ //            .duration(750)
+ //            .attr("d", line(data));
+ //        svg.select("axis axis--x") // change the x axis
+ //            .duration(750)
+ //            .call(x);
+ //        svg.select("axis axis--y") // change the y axis
+ //            .duration(750)
+ //            .call(y);
+
+ //    });
+	// };
+
+	
+	
 
 };
