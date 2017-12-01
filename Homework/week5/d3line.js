@@ -73,7 +73,7 @@ window.onload = function(d) {
   	var line = d3.line()
 	    .curve(d3.curveBasis)
 	    .x(function(d) { return x(d.date); })
-	    .y(function(d) { return y(d.temperature); });
+	    .y(function(d) { console.log(d.temperature); return y(d.temperature); });
 
 
   	var point= g.selectAll(".point")
@@ -88,57 +88,88 @@ window.onload = function(d) {
     	.style("stroke", function(d) { return z(d.id); })
     	.style("fill", "none");	
     	
-});
+ //    var color = d3.scaleOrdinal(d3.schemeCategory10);
+    
+	// var legend = g.selectAll(".legend")
+ //  				.data(color.domain())
+	// 		.enter().append("g")
+	// 		    .attr("class", "legend")
+	// 		    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+	// legend.append("rect")
+	// 	.attr("x", width - 17)
+	// 	.attr("y", 44)
+	// 	.attr("width", 17)
+	// 	.attr("height", 17)
+	// 	.style("fill", color);
+
+	// legend.append("text")
+	// 	.attr("x", width - 24)
+	// 	.attr("y", 50)
+	// 	.attr("dy", ".35em")
+	// 	.style("text-anchor", "end")
+	// 	.text(function(d) { return d.id; });
+
+	console.log(d3.select("#option input"))
+	d3.select("#option input")
+		.on("click", updateData);
+
+
  //    // vanaf dit punt 2 stations proberen te krijgen
- //    function updateData() {
+	function updateData() {
 
     
- //    // Get the data again
- //    d3.json("outputs.json", function(error, data) {
- //    	var data = data;
+    // Get the data again
+    d3.json("outputs.json", function(error, data) {
+    	var data = data;
 
-	//     var min_temp = [];
-	// 	var max_temp = [];
-	// 	var average_temp = [];
+	    var min_temp = [];
+		var max_temp = [];
+		var average_temp = [];
+		var parsetime = d3.timeParse("%m/%d/%Y")
+	data.forEach( function(d){
+			var date = parsetime(d.date);
+			min_temp.push({date: date, temperature: d.min_temp/10})
+			max_temp.push({date: date, temperature: d.max_temp/10})
+			average_temp.push({date: date, temperature: d.average_temp/10})
+			});
 
-	// data.forEach( function(d){
-	// 		var date = parsetime(d.date);
-	// 		min_temp.push({date: date, temperature: d.min_temp/10})
-	// 		max_temp.push({date: date, temperature: d.max_temp/10})
-	// 		average_temp.push({date: date, temperature: d.average_temp/10})
-	// 		});
-
-	// var good_data = [{id: "min_temp", values: min_temp}, {id: "average_temp", values: average_temp}, {id: "max_temp", values: max_temp}];
+	var good_data = [{id: "min_temp", values: min_temp}, {id: "average_temp", values: average_temp}, {id: "max_temp", values: max_temp}];
 	
-	// x.domain(d3.extent(min_temp, function(d) { return d.date; }));
+	x.domain(d3.extent(min_temp, function(d) { return d.date; }));
 	
 
-	// y.domain([
- //    d3.min(min_temp, function(d) { return d.temperature; }),
- //    d3.max(max_temp, function(d) { return d.temperature; })
- //  	]);
+	y.domain([
+    d3.min(min_temp, function(d) { return d.temperature; }),
+    d3.max(max_temp, function(d) { return d.temperature; })
+  	]);
 
-	// z.domain(good_data.map(function(d) { return d.id; }));
+	z.domain(good_data.map(function(d) { return d.id; }));
     
 
- //    // Select the section we want to apply our changes to
- //    var svg = d3.select("body").transition();
+    // Select the section we want to apply our changes to
+    var svg = d3.select("body").transition();
 
- //    // Make the changes
- //        svg.select(".line")   // change the line
- //            .duration(750)
- //            .attr("d", line(data));
- //        svg.select("axis axis--x") // change the x axis
- //            .duration(750)
- //            .call(x);
- //        svg.select("axis axis--y") // change the y axis
- //            .duration(750)
- //            .call(y);
+    d3.selectAll(".line")
+    	.data(good_data);
+    // Make the changes
+        svg.selectAll(".line")   // change the line
+            .duration(750)
+            .attr("d", function(d) { return line(d.values); });
+        svg.select("axis axis--x") // change the x axis
+            .duration(750)
+            .call(x);
+        svg.select("axis axis--y") // change the y axis
+            .duration(750)
+            .call(y);
 
- //    });
-	// };
-
+    });
+	};
 	
-	
 
+
+
+    
+});
 };
+
