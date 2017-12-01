@@ -93,6 +93,7 @@ window.onload = function(d) {
     	.style("stroke", function(d) { return z(d.id); })
     	.style("fill", "none");	
     	
+ // LEGEND DOES NOT WORK SO CODE IS IN COMMENTS
  //    var color = d3.scaleOrdinal(d3.schemeCategory10);
     
 	// var legend = g.selectAll(".legend")
