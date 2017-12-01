@@ -1,3 +1,10 @@
+/* Jelle den Haan 
+ 11975458
+ d3line.js
+ this file creates a multiple line graph using d3
+ based on: https://bl.ocks.org/mbostock/3884955
+*/
+
 "use strict";
 var parsetime = d3.timeParse("%m/%d/%Y")
 
