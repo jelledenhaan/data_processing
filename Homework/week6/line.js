@@ -213,9 +213,9 @@ window.onload = function() {
 			.x(function(d){ return x(d.year); })
 			.y(function(d){ return y(d.value); });
 
-		// 
+		// set the domains of x and y axis  
 		x.domain(d3.extent(data_line, function(d) { return d.year } ));
-		y.domain([0,d3.max(data_line, function(d) { return d.value } )]);	
+		y.domain([0,d3.max(data_line, function(d) { return 1.25 * d.value } )]);	
 
 		// append line to g element
 		g.append("path")
