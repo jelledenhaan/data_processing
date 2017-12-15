@@ -107,6 +107,7 @@ window.onload = function() {
   	.append("text")
       	.attr("transform", "rotate(-90)")
       	.attr("y", 1)
+      	.attr("x", -height/2)
       	.attr("dy", ".71em")
       	.style("text-anchor", "end")
       	.style("font-weight","bold")
