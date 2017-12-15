@@ -1,3 +1,10 @@
+/* Jelle den Haan 
+ 11975458
+ d3line.js
+ this file creates a grouped barchart and a line chart
+ which are linked
+*/
+
 'use strict';
 
 
