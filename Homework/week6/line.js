@@ -27,7 +27,13 @@ window.onload = function() {
 		create_line(outputLine);
 
 		d3.selectAll("#info")
-		.on("click", function(){ alert("")});
+		.on("click", function(){ alert("This page shows indexes for a couple of country's in Europe.\n"
+			+"I wanted to look to those indexes and wanted to know the differences between the corresponding country's\n"
+			+"In the line chart, the populations growth can be seen. The aim was to search for a relationship\n"
+			+"between those indexes and the growth and population numbers of the corresponding country's.\n"
+			+"In the end it was hard to find a link between the indexes and the growth of the population.\n"
+			+"Personnaly I think it depends more on a bunch of other factors (e.g. Economic status, Geographic position and the form of government\n"
+			+"The link between those things and the different indexes is something to investigate the next time!");});
 
 	function create_bar(data_bar){
 
