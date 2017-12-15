@@ -4,8 +4,8 @@
 window.onload = function() {
 	// load data from 2 json files 
 	queue()
-	.defer(d3.json, 'outputGbar.json')
-	.defer(d3.json, 'outputLine1.json')
+	.defer(d3.json, "outputGbar1.json")
+	.defer(d3.json, "outputLine2.json")
 	.await(init);
 
 	function init(error, outputGbar, outputLine){
@@ -37,13 +37,13 @@ window.onload = function() {
 	    .range([height, 0]);
 
 	// variable for x axis
-	var xAxis = d3.svg.axis()
+	var x_axis = d3.svg.axis()
 	    .scale(x0)
 	    .tickSize(0)
 	    .orient("bottom");
 
 	// variable for y axis
-	var yAxis = d3.svg.axis()
+	var y_axis = d3.svg.axis()
 	    .scale(y)
 	    .orient("left");
 
@@ -64,7 +64,7 @@ window.onload = function() {
 	g.append("g")
 	    .attr("class", "x axis")
       	.attr("transform", "translate(0," + height + ")")
-      	.call(xAxis)
+      	.call(x_axis)
       	.selectAll("text")	
             .style("text-anchor", "start")
             .attr("font-size", "12px")
@@ -83,17 +83,18 @@ window.onload = function() {
   	// append y axis to g element
   	g.append("g")
       	.attr("class", "y axis")
-      	.style('opacity','0')
-      	.call(yAxis)
+      	.style("opacity","0")
+      	.call(y_axis)
   	.append("text")
       	.attr("transform", "rotate(-90)")
-      	.attr("y", 6)
+      	.attr("y", 1)
       	.attr("dy", ".71em")
       	.style("text-anchor", "end")
-      	.style('font-weight','bold')
+      	.style("font-weight","bold")
+      	.style("font-size", "12px")
       	.text("Value");
 
-	svg.select('.y').transition().duration(500).delay(1300).style('opacity','1');
+	svg.select(".y").transition().duration(500).delay(1300).style("opacity","1");
 
 	var slice = g.selectAll(".slice")
 	    .data(data_bar)
