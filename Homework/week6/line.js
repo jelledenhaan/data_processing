@@ -3,6 +3,7 @@
  d3line.js
  this file creates a grouped barchart and a line chart
  which are linked
+ Inspiration for grouped barchart from: https://bl.ocks.org/bricedev/0d95074b6d83a77dc3ad
 */
 
 'use strict';
@@ -15,6 +16,8 @@ window.onload = function() {
 	.defer(d3.json, "outputLine2.json")
 	.await(init);
 
+
+
 	function init(error, outputGbar, outputLine){
 		
 		if (error) throw error;
@@ -22,6 +25,9 @@ window.onload = function() {
 		// create grouped barchart and default line chart
 		create_bar(outputGbar);
 		create_line(outputLine);
+
+		d3.selectAll("#info")
+		.on("click", function(){ alert("")});
 
 	function create_bar(data_bar){
 
