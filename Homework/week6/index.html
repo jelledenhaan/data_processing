@@ -1,0 +1,27 @@
+<!-- 
+       Jelle den Haan 
+       11975458
+       index.html
+       This is the html script which loads d3line.js.
+       The html page shows a multiple line graph which is created with d3
+-->
+<html>
+<head>
+	<title>Linked views</title>
+	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="http://d3js.org/queue.v1.min.js"></script>
+	<script src="line.js"></script>
+  <link rel="stylesheet" type="text/css" href="linked.css">
+</head>
+<body>
+  <h1>Grouped barchart of Life-, Safety- and Purchase power index</h1>
+    <p style="font-size:16px">In the chart below a grouped barchart of the Quality of Life-, Safety- and Purchasing power index can be seen.</p>
+    <p style="font-size:14px">(click on the countryname below the bars to view the line graph of that specific country)</p>
+      <a href = "https://www.numbeo.com/quality-of-life/rankings_by_country.jsp?title=2017&region=150">Data source</a>
+  <svg width = "1400" height= "700" id= "barsvg"></svg>
+    <h1>Line chart of population of a couple of European countries (2000 - 2017)</h1>
+      <p style="font-size:16px">In the chart below a line graph of the population of some European countries can be seen.</p>
+        <a href = "https://data.worldbank.org/indicator/SP.POP.TOTL">Data source</a>
+  <svg width = "1200"  height = "600" id="linesvg"></svg>
+</body>
+</html>

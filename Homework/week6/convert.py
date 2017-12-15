@@ -8,7 +8,7 @@ with open (csv_file) as csvfile:
 	lines = csv.reader(csvfile)
 
 	for line in lines:
-		temp = {'country': line[0], 'life_index': float(line[1]), 'power_index': float(line[2]), 'safety_index': float(line[3])}
+		temp = {'country': line[0], 'values': [{"value": float(line[1]), "sort": "life_index"}, {"value": float(line[2]), "sort": "purchase_index"},{"value": float(line[3]), "sort": "safety_index"}]}
 		data_set.append(temp)
 	
 	json_file = "outputGbar.json"
